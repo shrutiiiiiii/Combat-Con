@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    {% for event in events %}
+        <div style="margin: 2vmax;">
+            <article class="event">
+                <h2><a href="{% url 'events:event_detail' pk=event.pk %}">{{ event.title }}</a></h2>
+                <p>{{ event.desc|linebreaksbr }}</p>
+                <time class="date" >
+                    Published: {{ event.published_date }}
+                </time>
+            </article>
+        </div>
+    {% endfor %}
+{% endblock %}

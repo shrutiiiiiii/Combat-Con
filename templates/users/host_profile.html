@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+  .events-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.events-list li {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.events-list li h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.events-list li p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+  <h1>Host Profile</h1>
+  <p>Name: {{ host.name }}</p>
+  <p>Contact Number: {{ host.contact_number }}</p>
+  <p>Organization Name: {{ host.organization_name }}</p>
+  <p>Events Hosted:</p>
+  {% if events %}
+    <ol>
+      {% for event in events %}
+        <li><a href="{% url 'events:event_detail' event.pk %}">{{ event.title }}</a></li>
+      {% endfor %}
+    </ol>
+    {% else %}
+      <li>No events hosted yet.</li>
+  {% endif %}
+  <a href="{% url 'users:edit_host_profile' user.host.pk %}">Edit Profile</a><br><br>
+  <a href="{% url 'events:event_create' %}">Create New Event</a>
+{% endblock %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}COMBAT-CON{% endblock %}</title>
+  <style>
+    /* add your global CSS styles here */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    
+    nav {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+    }
+    
+    nav a:hover {
+      text-decoration: underline;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .alert {
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .alert-success {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+    }
+    
+    .alert-danger {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+    }
+    
+    footer {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      margin-top: 50px;
+    }
+  
+  
+    
+    footer p {
+      margin: 0;
+    }
+  </style>
+  {% block css %}{% endblock %}
+</head>
+<body>
+  <nav>
+    <div>
+      <a href="{% url 'home' %}">Combat-Con</a>
+    </div>
+    <div style="justify-content: space-around; align-items: center; padding: 0 20px;">
+      <a href="{% url 'events:event_list' %}" style="margin-left: -100px;">Events</a>
+      {% if request.user.is_authenticated %}
+        
+        {% if request.user.is_athlete %}
+          <a href="{% url 'users:athlete_profile' user.athlete.pk %}">Athlete Profile</a>
+        {% elif request.user.is_host %}
+          <a href="{% url 'users:host_profile' user.host.pk %}">Host Profile</a>
+        {% endif %}
+        
+        <a href="{% url 'users:user_logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'users:register' %}">Register</a>
+        <a href="{% url 'users:login' %}">Login</a>
+      {% endif %}
+    </div>
+  </nav>
+  
+  <div class="container">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+    
+    {% block content %}{% endblock %}
+  </div>
+  <div class="footer">
+    <footer>
+      <p>&copy; 2023 Combat-Con</p>
+    </footer>
+  </div>
+</body>
+</html>

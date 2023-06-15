@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        color: #333;
+        font-size: 36px;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin: 20px 0;
+    }
+
+    </style>
+{% endblock %}
+    
+{% block content %}
+    <h1>Welcome to COMBAT-CON</h1>
+    <p>Register as an athlete or host to get started.</p>
+    <a href="{% url 'users:register' %}">Register</a>
+{% endblock %}

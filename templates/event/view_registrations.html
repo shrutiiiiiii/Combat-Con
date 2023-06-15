@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Registrations for {{ event.title }}</h2>
+    <a href="{% url 'events:download_registrations' event_id=event.id %}">Download registrations as CSV</a>
+    <table border="1" cellspacing="20" style="border-collapse: collapse;"  cellpadding="20">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Weight</th>
+                <th>Weight category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registration in registrations %}
+                <tr>
+                    <td>{{ registration.name }}</td>
+                    <td>{{ registration.age }}</td>
+                    <td>{{ registration.weight }}</td>
+                    <td>{{ registration.weight_category }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No registrations found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Registration Successful!</h1>
+  <p>Thank you for registering for {{ event.title }}!</p>
+  <p>Your registration details:</p>
+  <ul>
+    <li>Name: {{ athlete.name }}</li>
+    <li>Contact Number: {{ athlete.contact_number }}</li>
+    <li>Age: {{ athlete.age }}</li>
+    <li>Weight: {{ athlete.weight }}</li>
+    <li>Height: {{ athlete.height }}</li>
+    <li>Gender: {{ athlete.gender }}</li>
+    <li>Weight Category: {{ athlete.weight_category }}</li>
+    <li>Fighting Style: {{ athlete.fighting_style }}</li>
+    <li>Club Name: {{ athlete.club_name }}</li>
+  </ul>
+{% endblock %}

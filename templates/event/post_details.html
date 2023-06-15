@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <article class="event">
+        {% if event.published_date %}
+            <time class="date">
+                {{ event.published_date }}
+            </time>
+        {% endif %}
+        <h2>{{ event.title }}</h2>
+        <p>
+            {{ event.desc|linebreaksbr }}
+            <br>
+            <br>
+            DATE OF EVENT: {{ event.date }}
+            <br>
+            <br>
+            LOCATION: {{ event.location }}
+            <br>
+            <br>
+            LAST DATE OF REGISTRATION: {{ event.last_reg_date }}
+            <br>
+            <br>
+            ENTRY FEE: ₹{{ event.entry_fee }}
+            <br>
+            <br>
+            PRIZE AMOUNT: ₹{{ event.prize }}
+            <br>
+            <br>
+            CONTACT NUMBER: {{ event.contact_no }}
+            <br>
+            <br>
+            INSTAGRAM PROFILE: {{ event.ig_handle }}
+            <br>
+            <br>
+            FACEBOOK PROFILE: {{ event.fb_handle }}
+        </p>
+
+        {% if request.user.is_athlete %}
+            <a href="{% url 'events:event_registration' pk=event.pk %}">Register</a>
+        {% elif request.user.is_host %}
+            {% if request.user.username == event.host.user.username %}
+                <a href="{% url 'events:view_registrations' pk=event.pk %}">View Registrations</a><br>
+                <a href="{% url 'events:event_update' pk=event.pk %}">Update Event</a><br>
+                <a href="{% url 'events:event_delete' pk=event.pk %}">Delete Event</a>
+            {% endif %}      
+        {% endif %}
+
+    </article>
+{% endblock %}
